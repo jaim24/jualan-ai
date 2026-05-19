@@ -27,7 +27,6 @@ export default function ProjectsClient({ projects }: ProjectsClientProps) {
   const [filter, setFilter] = useState<"all" | "published" | "draft">("all");
   const [sortBy, setSortBy] = useState<"newest" | "oldest" | "name">("newest");
   const router = useRouter();
-  const supabase = createClient();
 
   // Filter & search
   const filtered = projects
@@ -48,6 +47,7 @@ export default function ProjectsClient({ projects }: ProjectsClientProps) {
 
   async function handleDelete(id: string) {
     if (!confirm("Yakin ingin menghapus project ini?")) return;
+    const supabase = createClient();
     const { error } = await supabase.from("landing_pages").delete().eq("id", id);
     if (!error) {
       router.refresh();

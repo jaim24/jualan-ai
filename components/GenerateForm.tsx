@@ -51,9 +51,9 @@ export default function GenerateForm() {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
-  const supabase = createClient();
 
   async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const supabase = createClient();
     const file = e.target.files?.[0];
     if (!file) return;
 

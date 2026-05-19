@@ -35,7 +35,6 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   const router = useRouter();
-  const supabase = createClient();
 
   // Parse sections from existing data
   useEffect(() => {
@@ -54,6 +53,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
     setSaving(true);
     setMessage("");
 
+    const supabase = createClient();
     const { error } = await supabase
       .from("landing_pages")
       .update({
@@ -74,6 +74,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
   async function handleDelete() {
     if (!confirm("Yakin ingin menghapus project ini? Tindakan ini tidak bisa dibatalkan.")) return;
 
+    const supabase = createClient();
     const { error } = await supabase
       .from("landing_pages")
       .delete()

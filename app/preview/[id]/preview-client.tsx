@@ -16,7 +16,6 @@ export default function PreviewClient({ landingPage }: PreviewClientProps) {
   const [ctaLink, setCtaLink] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const supabase = createClient();
 
   // Word count & read time
   const wordCount = html.replace(/<[^>]*>/g, " ").split(/\s+/).filter(Boolean).length;
@@ -66,6 +65,7 @@ export default function PreviewClient({ landingPage }: PreviewClientProps) {
   async function handleDelete() {
     if (!confirm("Yakin ingin menghapus halaman ini? Tindakan ini tidak bisa dibatalkan.")) return;
 
+    const supabase = createClient();
     const { error } = await supabase
       .from("landing_pages")
       .delete()
@@ -106,6 +106,7 @@ export default function PreviewClient({ landingPage }: PreviewClientProps) {
     setHtml(updatedHtml);
 
     // Save to database
+    const supabase = createClient();
     supabase
       .from("landing_pages")
       .update({ html_content: updatedHtml })

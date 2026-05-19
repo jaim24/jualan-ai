@@ -17,12 +17,12 @@ export default function SettingsClient({ profile, email }: SettingsClientProps) 
   const [fullName, setFullName] = useState(profile?.full_name || "");
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
-  const supabase = createClient();
 
   async function handleSave() {
     setSaving(true);
     setMessage("");
 
+    const supabase = createClient();
     const { error } = await supabase
       .from("profiles")
       .update({ full_name: fullName })
