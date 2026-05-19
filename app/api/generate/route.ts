@@ -6,9 +6,13 @@ import { SYSTEM_PROMPT, SYSTEM_PROMPT_JSON, buildUserPrompt } from "@/lib/prompt
 import type { FormData } from "@/types";
 import type { SectionData } from "@/types/sections";
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
+function getGroqClient() {
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) {
+    throw new Error("GROQ_API_KEY is not configured.");
+  }
+  return new Groq({ apiKey });
+}
 
 export async function POST(request: Request) {
   try {
@@ -89,6 +93,7 @@ export async function POST(request: Request) {
 
     const systemPrompt = outputFormat === "json" ? SYSTEM_PROMPT_JSON : SYSTEM_PROMPT;
 
+    const groq = getGroqClient();
     const chatCompletion = await groq.chat.completions.create({
       messages: [
         { role: "system", content: systemPrompt },
