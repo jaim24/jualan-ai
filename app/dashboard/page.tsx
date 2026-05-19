@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase-server";
-import DashboardClient from "./dashboard-client";
+import DashboardOverview from "./overview-client";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -13,24 +13,29 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  // Fetch profile
   const { data: profile } = await supabase
     .from("profiles")
     .select("*")
     .eq("id", user.id)
     .single();
 
-  // Fetch landing pages
   const { data: landingPages } = await supabase
     .from("landing_pages")
     .select("*")
     .eq("user_id", user.id)
     .order("created_at", { ascending: false });
 
+  // Calculate stats
+  const totalPages = landingPages?.length || 0;
+  const publishedPages = landingPages?.filter((p) => p.is_published).length || 0;
+  const totalViews = landingPages?.reduce((sum, p) => sum + (p.view_count || 0), 0) || 0;
+  const recentPages = landingPages?.slice(0, 5) || [];
+
   return (
-    <DashboardClient
+    <DashboardOverview
       profile={profile}
-      landingPages={landingPages || []}
+      stats={{ totalPages, publishedPages, totalViews }}
+      recentPages={recentPages}
     />
   );
 }
