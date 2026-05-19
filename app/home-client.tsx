@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
+import CustomCursor from "@/components/CustomCursor";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -28,6 +29,8 @@ export default function HomeClient() {
 
   return (
     <>
+      <CustomCursor />
+
       {/* Navbar */}
       <motion.nav
         initial={{ y: -20, opacity: 0 }}
