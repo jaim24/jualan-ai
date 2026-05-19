@@ -26,16 +26,34 @@
   --radius-pill: 100px;
   --radius-full: 9999px;
 
-  /* Font */
-  --font-sans: "Inter", sans-serif;
-  --font-display: "Inter", sans-serif;
+  /* Font — use next/font variable */
+  --font-sans: var(--font-inter), "Inter", sans-serif;
+  --font-display: var(--font-inter), "Inter", sans-serif;
 }
 
 body {
   background-color: var(--color-canvas);
   color: var(--color-ink);
-  font-family: var(--font-sans);
   font-feature-settings: "cv01", "cv05", "cv09", "cv11", "ss03", "ss07";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fix placeholder contrast for WCAG AA (min 4.5:1) */
+::placeholder {
+  color: #737373;
+  opacity: 1;
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

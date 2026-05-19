@@ -206,7 +206,7 @@ export default function GenerateForm() {
 
       {/* Error */}
       {error && (
-        <div className="mb-6 p-3 text-sm text-gradient-coral bg-gradient-coral/10 rounded-[10px] border border-gradient-coral/20">
+        <div role="alert" className="mb-6 p-3 text-sm text-gradient-coral bg-gradient-coral/10 rounded-[10px] border border-gradient-coral/20">
           {error}
         </div>
       )}
@@ -219,44 +219,47 @@ export default function GenerateForm() {
           </h2>
 
           <div className="flex flex-col gap-2">
-            <label className="text-[13px] font-medium tracking-[-0.13px] text-ink-muted">
+            <label htmlFor="product_name" className="text-[13px] font-medium tracking-[-0.13px] text-ink-muted">
               Nama Produk
             </label>
             <input
+              id="product_name"
               type="text"
               value={formData.product_name}
               onChange={(e) => updateField("product_name", e.target.value)}
               placeholder='Contoh: "E-book Resep MPASI 100 Menu"'
-              className="w-full px-3.5 py-2.5 text-[15px] tracking-[-0.15px] text-ink bg-surface-1 rounded-[10px] border border-hairline placeholder:text-ink-muted/50 focus:outline-none focus:ring-1 focus:ring-accent-blue/30"
+              className="w-full px-3.5 py-2.5 text-[15px] tracking-[-0.15px] text-ink bg-surface-1 rounded-[10px] border border-hairline focus:outline-none focus:ring-2 focus:ring-accent-blue/40"
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-[13px] font-medium tracking-[-0.13px] text-ink-muted">
+            <label htmlFor="description" className="text-[13px] font-medium tracking-[-0.13px] text-ink-muted">
               Deskripsi Singkat
               <span className="ml-2 text-ink-muted/50">
                 ({formData.description.length}/200)
               </span>
             </label>
             <textarea
+              id="description"
               value={formData.description}
               onChange={(e) =>
                 updateField("description", e.target.value.slice(0, 200))
               }
               placeholder="Jelaskan produkmu dalam 1-2 kalimat"
               rows={3}
-              className="w-full px-3.5 py-2.5 text-[15px] tracking-[-0.15px] text-ink bg-surface-1 rounded-[10px] border border-hairline placeholder:text-ink-muted/50 focus:outline-none focus:ring-1 focus:ring-accent-blue/30 resize-none"
+              className="w-full px-3.5 py-2.5 text-[15px] tracking-[-0.15px] text-ink bg-surface-1 rounded-[10px] border border-hairline focus:outline-none focus:ring-2 focus:ring-accent-blue/40 resize-none"
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-[13px] font-medium tracking-[-0.13px] text-ink-muted">
+            <label htmlFor="category" className="text-[13px] font-medium tracking-[-0.13px] text-ink-muted">
               Kategori Produk
             </label>
             <select
+              id="category"
               value={formData.category}
               onChange={(e) => updateField("category", e.target.value)}
-              className="w-full px-3.5 py-2.5 text-[15px] tracking-[-0.15px] text-ink bg-surface-1 rounded-[10px] border border-hairline focus:outline-none focus:ring-1 focus:ring-accent-blue/30"
+              className="w-full px-3.5 py-2.5 text-[15px] tracking-[-0.15px] text-ink bg-surface-1 rounded-[10px] border border-hairline focus:outline-none focus:ring-2 focus:ring-accent-blue/40"
             >
               <option value="" disabled>
                 Pilih kategori
@@ -270,10 +273,11 @@ export default function GenerateForm() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-[13px] font-medium tracking-[-0.13px] text-ink-muted">
+            <label htmlFor="price" className="text-[13px] font-medium tracking-[-0.13px] text-ink-muted">
               Harga Produk
             </label>
             <input
+              id="price"
               type="text"
               value={formData.price ? `Rp ${Number(formData.price).toLocaleString("id-ID")}` : ""}
               onChange={(e) => {
@@ -281,7 +285,7 @@ export default function GenerateForm() {
                 updateField("price", raw);
               }}
               placeholder="Rp 100.000"
-              className="w-full px-3.5 py-2.5 text-[15px] tracking-[-0.15px] text-ink bg-surface-1 rounded-[10px] border border-hairline placeholder:text-ink-muted/50 focus:outline-none focus:ring-1 focus:ring-accent-blue/30"
+              className="w-full px-3.5 py-2.5 text-[15px] tracking-[-0.15px] text-ink bg-surface-1 rounded-[10px] border border-hairline focus:outline-none focus:ring-2 focus:ring-accent-blue/40"
             />
           </div>
 
@@ -301,7 +305,8 @@ export default function GenerateForm() {
                 <button
                   type="button"
                   onClick={() => updateField("product_image", "")}
-                  className="absolute top-2 right-2 w-7 h-7 flex items-center justify-center bg-black/70 text-white rounded-full text-xs hover:bg-black/90 transition-colors"
+                  aria-label="Hapus gambar produk"
+                  className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center bg-black/70 text-white rounded-full text-xs hover:bg-black/90 transition-colors focus-visible:ring-2 focus-visible:ring-accent-blue"
                 >
                   ✕
                 </button>
@@ -338,13 +343,14 @@ export default function GenerateForm() {
           </h2>
 
           <div className="flex flex-col gap-2">
-            <label className="text-[13px] font-medium tracking-[-0.13px] text-ink-muted">
+            <label htmlFor="benefits" className="text-[13px] font-medium tracking-[-0.13px] text-ink-muted">
               3 Manfaat Utama
               <span className="ml-2 text-ink-muted/50">
                 (pisahkan dengan enter)
               </span>
             </label>
             <textarea
+              id="benefits"
               value={formData.benefits}
               onChange={(e) => {
                 const lines = e.target.value.split("\n");
@@ -354,33 +360,35 @@ export default function GenerateForm() {
               }}
               placeholder={"Manfaat 1\nManfaat 2\nManfaat 3"}
               rows={4}
-              className="w-full px-3.5 py-2.5 text-[15px] tracking-[-0.15px] text-ink bg-surface-1 rounded-[10px] border border-hairline placeholder:text-ink-muted/50 focus:outline-none focus:ring-1 focus:ring-accent-blue/30 resize-none"
+              className="w-full px-3.5 py-2.5 text-[15px] tracking-[-0.15px] text-ink bg-surface-1 rounded-[10px] border border-hairline focus:outline-none focus:ring-2 focus:ring-accent-blue/40 resize-none"
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-[13px] font-medium tracking-[-0.13px] text-ink-muted">
+            <label htmlFor="target_audience" className="text-[13px] font-medium tracking-[-0.13px] text-ink-muted">
               Target Pembeli
             </label>
             <input
+              id="target_audience"
               type="text"
               value={formData.target_audience}
               onChange={(e) => updateField("target_audience", e.target.value)}
               placeholder='Contoh: "Ibu baru yang anaknya mulai MPASI"'
-              className="w-full px-3.5 py-2.5 text-[15px] tracking-[-0.15px] text-ink bg-surface-1 rounded-[10px] border border-hairline placeholder:text-ink-muted/50 focus:outline-none focus:ring-1 focus:ring-accent-blue/30"
+              className="w-full px-3.5 py-2.5 text-[15px] tracking-[-0.15px] text-ink bg-surface-1 rounded-[10px] border border-hairline focus:outline-none focus:ring-2 focus:ring-accent-blue/40"
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-[13px] font-medium tracking-[-0.13px] text-ink-muted">
+            <label htmlFor="problem_solved" className="text-[13px] font-medium tracking-[-0.13px] text-ink-muted">
               Masalah yang Diselesaikan
             </label>
             <input
+              id="problem_solved"
               type="text"
               value={formData.problem_solved}
               onChange={(e) => updateField("problem_solved", e.target.value)}
               placeholder="Apa masalah utama yang produkmu selesaikan?"
-              className="w-full px-3.5 py-2.5 text-[15px] tracking-[-0.15px] text-ink bg-surface-1 rounded-[10px] border border-hairline placeholder:text-ink-muted/50 focus:outline-none focus:ring-1 focus:ring-accent-blue/30"
+              className="w-full px-3.5 py-2.5 text-[15px] tracking-[-0.15px] text-ink bg-surface-1 rounded-[10px] border border-hairline focus:outline-none focus:ring-2 focus:ring-accent-blue/40"
             />
           </div>
         </div>
@@ -427,29 +435,31 @@ export default function GenerateForm() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-[13px] font-medium tracking-[-0.13px] text-ink-muted">
+            <label htmlFor="cta_text" className="text-[13px] font-medium tracking-[-0.13px] text-ink-muted">
               Teks Tombol CTA
             </label>
             <input
+              id="cta_text"
               type="text"
               value={formData.cta_text}
               onChange={(e) => updateField("cta_text", e.target.value)}
               placeholder='Contoh: "Beli Sekarang" atau "Dapatkan Akses"'
-              className="w-full px-3.5 py-2.5 text-[15px] tracking-[-0.15px] text-ink bg-surface-1 rounded-[10px] border border-hairline placeholder:text-ink-muted/50 focus:outline-none focus:ring-1 focus:ring-accent-blue/30"
+              className="w-full px-3.5 py-2.5 text-[15px] tracking-[-0.15px] text-ink bg-surface-1 rounded-[10px] border border-hairline focus:outline-none focus:ring-2 focus:ring-accent-blue/40"
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-[13px] font-medium tracking-[-0.13px] text-ink-muted">
+            <label htmlFor="cta_link" className="text-[13px] font-medium tracking-[-0.13px] text-ink-muted">
               Link CTA / WhatsApp
               <span className="ml-2 text-ink-muted/50">(opsional)</span>
             </label>
             <input
+              id="cta_link"
               type="text"
               value={formData.cta_link}
               onChange={(e) => updateField("cta_link", e.target.value)}
               placeholder="https://... atau 08xxxxxxxxxx"
-              className="w-full px-3.5 py-2.5 text-[15px] tracking-[-0.15px] text-ink bg-surface-1 rounded-[10px] border border-hairline placeholder:text-ink-muted/50 focus:outline-none focus:ring-1 focus:ring-accent-blue/30"
+              className="w-full px-3.5 py-2.5 text-[15px] tracking-[-0.15px] text-ink bg-surface-1 rounded-[10px] border border-hairline focus:outline-none focus:ring-2 focus:ring-accent-blue/40"
             />
           </div>
 

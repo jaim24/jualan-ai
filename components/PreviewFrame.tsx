@@ -12,11 +12,13 @@ export default function PreviewFrame({ html }: PreviewFrameProps) {
   return (
     <div className="flex flex-col h-full">
       {/* Toggle Desktop / Mobile */}
-      <div className="flex items-center gap-2 mb-4">
+      <div className="flex items-center gap-2 mb-4" role="tablist" aria-label="Preview mode">
         <button
           type="button"
+          role="tab"
+          aria-selected={mode === "desktop"}
           onClick={() => setMode("desktop")}
-          className={`px-3 py-1.5 text-[13px] font-medium tracking-[-0.13px] rounded-full transition-colors ${
+          className={`px-4 py-2 text-[13px] font-medium rounded-full transition-colors min-h-[44px] focus-visible:ring-2 focus-visible:ring-accent-blue ${
             mode === "desktop"
               ? "bg-surface-2 text-ink"
               : "text-ink-muted hover:text-ink"
@@ -26,8 +28,10 @@ export default function PreviewFrame({ html }: PreviewFrameProps) {
         </button>
         <button
           type="button"
+          role="tab"
+          aria-selected={mode === "mobile"}
           onClick={() => setMode("mobile")}
-          className={`px-3 py-1.5 text-[13px] font-medium tracking-[-0.13px] rounded-full transition-colors ${
+          className={`px-4 py-2 text-[13px] font-medium rounded-full transition-colors min-h-[44px] focus-visible:ring-2 focus-visible:ring-accent-blue ${
             mode === "mobile"
               ? "bg-surface-2 text-ink"
               : "text-ink-muted hover:text-ink"
@@ -46,7 +50,7 @@ export default function PreviewFrame({ html }: PreviewFrameProps) {
         <div
           className={`${
             mode === "mobile"
-              ? "w-[390px] border-2 border-hairline rounded-[30px] overflow-hidden mx-auto"
+              ? "w-full max-w-[390px] border-2 border-hairline rounded-[30px] overflow-hidden mx-auto"
               : "w-full h-full"
           }`}
         >
@@ -55,7 +59,7 @@ export default function PreviewFrame({ html }: PreviewFrameProps) {
             title="Landing Page Preview"
             className={`bg-white ${
               mode === "mobile"
-                ? "w-[390px] h-[700px]"
+                ? "w-full max-w-[390px] h-[700px]"
                 : "w-full h-full min-h-[600px]"
             }`}
             sandbox="allow-scripts"
