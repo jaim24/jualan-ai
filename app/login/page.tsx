@@ -10,7 +10,6 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const supabase = createClient();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -23,6 +22,7 @@ export default function LoginPage() {
 
     setLoading(true);
 
+    const supabase = createClient();
     const { error: signInError } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -60,6 +60,7 @@ export default function LoginPage() {
         <button
           type="button"
           onClick={async () => {
+            const supabase = createClient();
             const { error } = await supabase.auth.signInWithOAuth({
               provider: "google",
               options: {
