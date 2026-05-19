@@ -38,6 +38,39 @@ export interface Profile {
   full_name: string | null;
   plan: "free" | "starter" | "pro";
   pages_generated: number;
+  avatar_url: string | null;
+  role: "user" | "admin";
+  created_at: string;
+}
+
+export interface Template {
+  id: string;
+  name: string;
+  slug: string;
+  description: string | null;
+  thumbnail: string | null;
+  category: string;
+  sections: SectionTemplate[];
+  is_published: boolean;
+  usage_count: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface SectionTemplate {
+  type: string;
+  default_data: Record<string, unknown>;
+  locked: boolean;
+  order: number;
+}
+
+export interface Collection {
+  id: string;
+  name: string;
+  slug: string;
+  description: string | null;
+  icon: string | null;
+  template_count: number;
   created_at: string;
 }
 
@@ -49,4 +82,21 @@ export interface GenerateResponse {
 
 export interface ErrorResponse {
   error: string;
+}
+
+export interface DashboardStats {
+  totalPages: number;
+  publishedPages: number;
+  totalViews: number;
+  totalTemplates: number;
+  totalUsers: number;
+  recentActivity: ActivityItem[];
+}
+
+export interface ActivityItem {
+  id: string;
+  type: "create" | "publish" | "edit" | "delete";
+  message: string;
+  user_name: string | null;
+  created_at: string;
 }

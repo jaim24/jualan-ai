@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -40,11 +41,17 @@ export default function LoginPage() {
       return;
     }
 
+    if (rememberMe) {
+      document.cookie = "remember_me=true; path=/; max-age=2592000; SameSite=Lax";
+    } else {
+      document.cookie = "remember_me=; path=/; max-age=0";
+    }
+
     router.push("/dashboard");
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-12">
+    <div className="min-h-screen flex items-center justify-center px-6 py-12 bg-canvas">
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-10">
@@ -131,10 +138,20 @@ export default function LoginPage() {
             />
           </div>
 
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+              className="w-4 h-4 rounded border-hairline bg-surface-1 accent-white"
+            />
+            <span className="text-sm text-ink-muted">Ingat saya</span>
+          </label>
+
           <button
             type="submit"
             disabled={loading}
-            className="mt-2 w-full px-6 py-3 text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-6 py-3 text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "Memproses..." : "Masuk"}
           </button>

@@ -15,6 +15,8 @@ import {
   Pencil,
   Trash2,
   Filter,
+  Globe,
+  Link,
 } from "lucide-react";
 import type { LandingPage } from "@/types";
 
@@ -56,12 +58,30 @@ export default function ProjectsClient({ projects }: ProjectsClientProps) {
     }
   }
 
+  async function handleTogglePublish(project: LandingPage) {
+    const supabase = createClient();
+    const slug = project.slug || project.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") + "-" + project.id.slice(0, 8);
+    const { error } = await supabase
+      .from("landing_pages")
+      .update({ is_published: !project.is_published, slug })
+      .eq("id", project.id);
+    if (!error) {
+      router.refresh();
+    }
+  }
+
+  function copyLink(project: LandingPage) {
+    const url = `${window.location.origin}/p/${project.slug}`;
+    navigator.clipboard.writeText(url);
+    alert("Link berhasil disalin!");
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink">
+          <h1 className="text-2xl sm:text-3xl font-medium tracking-tight text-ink">
             Projects
           </h1>
           <p className="text-sm text-ink-muted mt-1">
@@ -89,7 +109,7 @@ export default function ProjectsClient({ projects }: ProjectsClientProps) {
           <select
             value={filter}
             onChange={(e) => setFilter(e.target.value as "all" | "published" | "draft")}
-            className="px-3 py-2.5 text-sm bg-surface-1 border border-hairline rounded-lg text-ink focus:outline-none focus:ring-2 focus:ring-accent-blue/40"
+            className="px-3 py-2.5 text-sm bg-surface-1 border border-hairline rounded-md text-ink focus:outline-none focus:ring-2 focus:ring-accent-blue/40"
           >
             <option value="all">Semua</option>
             <option value="published">Published</option>
@@ -98,7 +118,7 @@ export default function ProjectsClient({ projects }: ProjectsClientProps) {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as "newest" | "oldest" | "name")}
-            className="px-3 py-2.5 text-sm bg-surface-1 border border-hairline rounded-lg text-ink focus:outline-none focus:ring-2 focus:ring-accent-blue/40"
+            className="px-3 py-2.5 text-sm bg-surface-1 border border-hairline rounded-md text-ink focus:outline-none focus:ring-2 focus:ring-accent-blue/40"
           >
             <option value="newest">Terbaru</option>
             <option value="oldest">Terlama</option>
@@ -111,7 +131,7 @@ export default function ProjectsClient({ projects }: ProjectsClientProps) {
       {filtered.length === 0 ? (
         <Card>
           <CardContent className="text-center py-16">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-surface-2 flex items-center justify-center">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-ink/5 flex items-center justify-center">
               <FileText size={24} className="text-ink-muted" />
             </div>
             <p className="text-sm text-ink-muted mb-2">
@@ -171,14 +191,22 @@ export default function ProjectsClient({ projects }: ProjectsClientProps) {
                     <Eye size={14} />
                     Preview
                   </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => router.push(`/preview/${project.id}`)}
-                    aria-label="Edit project"
+                  <button
+                    onClick={() => handleTogglePublish(project)}
+                    className="p-2 rounded-lg hover:bg-ink/5 text-ink-muted hover:text-success transition-colors"
+                    title={project.is_published ? "Unpublish" : "Publish"}
                   >
-                    <Pencil size={14} />
-                  </Button>
+                    <Globe size={14} />
+                  </button>
+                  {project.is_published && project.slug && (
+                    <button
+                      onClick={() => copyLink(project)}
+                      className="p-2 rounded-lg hover:bg-ink/5 text-ink-muted hover:text-accent-blue transition-colors"
+                      title="Copy public link"
+                    >
+                      <Link size={14} />
+                    </button>
+                  )}
                   <Button
                     variant="ghost"
                     size="icon"

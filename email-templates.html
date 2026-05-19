@@ -1,0 +1,216 @@
+================================================================
+ COPY TEMPLATE EMAIL UNTUK SUPABASE
+================================================================
+ Buka: Supabase Dashboard → Authentication → Email Templates
+ Pilih template, paste HTML di bawah, klik Save.
+================================================================
+
+
+----------------------------------------------------------------
+TEMPLATE 1: Confirm Signup (Verifikasi Email)
+----------------------------------------------------------------
+Subject: Konfirmasi email kamu — Jualan AI
+
+<body style="margin:0;padding:0;background-color:#090909;font-family:Inter,-apple-system,sans-serif;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#090909;">
+<tr><td align="center" style="padding:48px 16px;">
+<table role="presentation" width="480" cellpadding="0" cellspacing="0" style="max-width:480px;">
+<tr><td style="background-color:#141414;border:1px solid #262626;border-radius:20px;padding:40px 32px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+<tr><td align="center" style="padding-bottom:24px;">
+<img src="https://jualan-ai-4uqh-euxls73yn-zaim24s-projects.vercel.app/favicon.ico" width="40" height="40" alt="Jualan AI" style="border-radius:8px;">
+</td></tr>
+<tr><td align="center" style="padding-bottom:8px;">
+<h1 style="margin:0;font-size:22px;font-weight:500;letter-spacing:-0.8px;color:#ffffff;font-family:Inter,-apple-system,sans-serif;">Konfirmasi email kamu</h1>
+</td></tr>
+<tr><td align="center" style="padding-bottom:24px;">
+<p style="margin:0;font-size:15px;line-height:1.5;color:#999999;font-family:Inter,-apple-system,sans-serif;">Klik tombol di bawah untuk mengaktifkan akun Jualan AI kamu.</p>
+</td></tr>
+<tr><td align="center" style="padding-bottom:32px;">
+<table role="presentation" cellpadding="0" cellspacing="0">
+<tr><td align="center" style="background-color:#ffffff;border-radius:100px;padding:12px 32px;">
+<a href="{{ .ConfirmationURL }}" style="font-size:14px;font-weight:500;letter-spacing:-0.14px;color:#000000;text-decoration:none;font-family:Inter,-apple-system,sans-serif;display:inline-block;">Konfirmasi Email</a>
+</td></tr>
+</table>
+</td></tr>
+<tr><td align="center">
+<p style="margin:0;font-size:13px;color:#666666;font-family:Inter,-apple-system,sans-serif;">Atau copy link ini ke browser:<br>
+<span style="color:#0099ff;font-size:12px;">{{ .ConfirmationURL }}</span></p>
+</td></tr>
+</table>
+</td></tr>
+<tr><td align="center" style="padding-top:24px;">
+<p style="margin:0;font-size:12px;color:#666666;font-family:Inter,-apple-system,sans-serif;">&copy; 2026 Jualan AI &mdash; Buat Landing Page dengan AI</p>
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+
+
+----------------------------------------------------------------
+TEMPLATE 2: Reset Password
+----------------------------------------------------------------
+Subject: Atur ulang password — Jualan AI
+
+<body style="margin:0;padding:0;background-color:#090909;font-family:Inter,-apple-system,sans-serif;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#090909;">
+<tr><td align="center" style="padding:48px 16px;">
+<table role="presentation" width="480" cellpadding="0" cellspacing="0" style="max-width:480px;">
+<tr><td style="background-color:#141414;border:1px solid #262626;border-radius:20px;padding:40px 32px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+<tr><td align="center" style="padding-bottom:24px;">
+<img src="https://jualan-ai-4uqh-euxls73yn-zaim24s-projects.vercel.app/favicon.ico" width="40" height="40" alt="Jualan AI" style="border-radius:8px;">
+</td></tr>
+<tr><td align="center" style="padding-bottom:8px;">
+<h1 style="margin:0;font-size:22px;font-weight:500;letter-spacing:-0.8px;color:#ffffff;font-family:Inter,-apple-system,sans-serif;">Atur ulang password</h1>
+</td></tr>
+<tr><td align="center" style="padding-bottom:24px;">
+<p style="margin:0;font-size:15px;line-height:1.5;color:#999999;font-family:Inter,-apple-system,sans-serif;">Kami menerima permintaan reset password untuk akun Jualan AI kamu. Klik tombol di bawah untuk membuat password baru.</p>
+</td></tr>
+<tr><td align="center" style="padding-bottom:32px;">
+<table role="presentation" cellpadding="0" cellspacing="0">
+<tr><td align="center" style="background-color:#ffffff;border-radius:100px;padding:12px 32px;">
+<a href="{{ .ConfirmationURL }}" style="font-size:14px;font-weight:500;letter-spacing:-0.14px;color:#000000;text-decoration:none;font-family:Inter,-apple-system,sans-serif;display:inline-block;">Reset Password</a>
+</td></tr>
+</table>
+</td></tr>
+<tr><td align="center">
+<p style="margin:0;font-size:13px;color:#666666;font-family:Inter,-apple-system,sans-serif;">Link ini akan kadaluarsa dalam 1 jam.<br>
+Jika kamu tidak meminta reset password, abaikan email ini.</p>
+</td></tr>
+</table>
+</td></tr>
+<tr><td align="center" style="padding-top:24px;">
+<p style="margin:0;font-size:12px;color:#666666;font-family:Inter,-apple-system,sans-serif;">&copy; 2026 Jualan AI &mdash; Buat Landing Page dengan AI</p>
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+
+
+----------------------------------------------------------------
+TEMPLATE 3: Magic Link (Login tanpa password)
+----------------------------------------------------------------
+Subject: Masuk ke Jualan AI
+
+<body style="margin:0;padding:0;background-color:#090909;font-family:Inter,-apple-system,sans-serif;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#090909;">
+<tr><td align="center" style="padding:48px 16px;">
+<table role="presentation" width="480" cellpadding="0" cellspacing="0" style="max-width:480px;">
+<tr><td style="background-color:#141414;border:1px solid #262626;border-radius:20px;padding:40px 32px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+<tr><td align="center" style="padding-bottom:24px;">
+<img src="https://jualan-ai-4uqh-euxls73yn-zaim24s-projects.vercel.app/favicon.ico" width="40" height="40" alt="Jualan AI" style="border-radius:8px;">
+</td></tr>
+<tr><td align="center" style="padding-bottom:8px;">
+<h1 style="margin:0;font-size:22px;font-weight:500;letter-spacing:-0.8px;color:#ffffff;font-family:Inter,-apple-system,sans-serif;">Masuk ke Jualan AI</h1>
+</td></tr>
+<tr><td align="center" style="padding-bottom:24px;">
+<p style="margin:0;font-size:15px;line-height:1.5;color:#999999;font-family:Inter,-apple-system,sans-serif;">Klik tombol di bawah untuk masuk ke akun kamu. Tidak perlu password.</p>
+</td></tr>
+<tr><td align="center" style="padding-bottom:32px;">
+<table role="presentation" cellpadding="0" cellspacing="0">
+<tr><td align="center" style="background-color:#ffffff;border-radius:100px;padding:12px 32px;">
+<a href="{{ .ConfirmationURL }}" style="font-size:14px;font-weight:500;letter-spacing:-0.14px;color:#000000;text-decoration:none;font-family:Inter,-apple-system,sans-serif;display:inline-block;">Masuk ke Akun</a>
+</td></tr>
+</table>
+</td></tr>
+<tr><td align="center">
+<p style="margin:0;font-size:13px;color:#666666;font-family:Inter,-apple-system,sans-serif;">Atau copy link ini:<br>
+<span style="color:#0099ff;font-size:12px;">{{ .ConfirmationURL }}</span></p>
+</td></tr>
+</table>
+</td></tr>
+<tr><td align="center" style="padding-top:24px;">
+<p style="margin:0;font-size:12px;color:#666666;font-family:Inter,-apple-system,sans-serif;">&copy; 2026 Jualan AI &mdash; Buat Landing Page dengan AI</p>
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+
+
+----------------------------------------------------------------
+TEMPLATE 4: Change Email
+----------------------------------------------------------------
+Subject: Konfirmasi email baru — Jualan AI
+
+<body style="margin:0;padding:0;background-color:#090909;font-family:Inter,-apple-system,sans-serif;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#090909;">
+<tr><td align="center" style="padding:48px 16px;">
+<table role="presentation" width="480" cellpadding="0" cellspacing="0" style="max-width:480px;">
+<tr><td style="background-color:#141414;border:1px solid #262626;border-radius:20px;padding:40px 32px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+<tr><td align="center" style="padding-bottom:24px;">
+<img src="https://jualan-ai-4uqh-euxls73yn-zaim24s-projects.vercel.app/favicon.ico" width="40" height="40" alt="Jualan AI" style="border-radius:8px;">
+</td></tr>
+<tr><td align="center" style="padding-bottom:8px;">
+<h1 style="margin:0;font-size:22px;font-weight:500;letter-spacing:-0.8px;color:#ffffff;font-family:Inter,-apple-system,sans-serif;">Konfirmasi email baru</h1>
+</td></tr>
+<tr><td align="center" style="padding-bottom:24px;">
+<p style="margin:0;font-size:15px;line-height:1.5;color:#999999;font-family:Inter,-apple-system,sans-serif;">Klik tombol di bawah untuk mengkonfirmasi perubahan email akun Jualan AI kamu.</p>
+</td></tr>
+<tr><td align="center" style="padding-bottom:32px;">
+<table role="presentation" cellpadding="0" cellspacing="0">
+<tr><td align="center" style="background-color:#ffffff;border-radius:100px;padding:12px 32px;">
+<a href="{{ .ConfirmationURL }}" style="font-size:14px;font-weight:500;letter-spacing:-0.14px;color:#000000;text-decoration:none;font-family:Inter,-apple-system,sans-serif;display:inline-block;">Konfirmasi Email</a>
+</td></tr>
+</table>
+</td></tr>
+<tr><td align="center">
+<p style="margin:0;font-size:13px;color:#666666;font-family:Inter,-apple-system,sans-serif;">Atau copy link ini:<br>
+<span style="color:#0099ff;font-size:12px;">{{ .ConfirmationURL }}</span></p>
+</td></tr>
+</table>
+</td></tr>
+<tr><td align="center" style="padding-top:24px;">
+<p style="margin:0;font-size:12px;color:#666666;font-family:Inter,-apple-system,sans-serif;">&copy; 2026 Jualan AI &mdash; Buat Landing Page dengan AI</p>
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+
+
+----------------------------------------------------------------
+TEMPLATE 5: Invite (Undang pengguna)
+----------------------------------------------------------------
+Subject: Kamu diundang bergabung — Jualan AI
+
+<body style="margin:0;padding:0;background-color:#090909;font-family:Inter,-apple-system,sans-serif;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#090909;">
+<tr><td align="center" style="padding:48px 16px;">
+<table role="presentation" width="480" cellpadding="0" cellspacing="0" style="max-width:480px;">
+<tr><td style="background-color:#141414;border:1px solid #262626;border-radius:20px;padding:40px 32px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+<tr><td align="center" style="padding-bottom:24px;">
+<img src="https://jualan-ai-4uqh-euxls73yn-zaim24s-projects.vercel.app/favicon.ico" width="40" height="40" alt="Jualan AI" style="border-radius:8px;">
+</td></tr>
+<tr><td align="center" style="padding-bottom:8px;">
+<h1 style="margin:0;font-size:22px;font-weight:500;letter-spacing:-0.8px;color:#ffffff;font-family:Inter,-apple-system,sans-serif;">Kamu diundang bergabung!</h1>
+</td></tr>
+<tr><td align="center" style="padding-bottom:24px;">
+<p style="margin:0;font-size:15px;line-height:1.5;color:#999999;font-family:Inter,-apple-system,sans-serif;">Klik tombol di bawah untuk membuat akun dan mulai menggunakan Jualan AI.</p>
+</td></tr>
+<tr><td align="center" style="padding-bottom:32px;">
+<table role="presentation" cellpadding="0" cellspacing="0">
+<tr><td align="center" style="background-color:#ffffff;border-radius:100px;padding:12px 32px;">
+<a href="{{ .ConfirmationURL }}" style="font-size:14px;font-weight:500;letter-spacing:-0.14px;color:#000000;text-decoration:none;font-family:Inter,-apple-system,sans-serif;display:inline-block;">Terima Undangan</a>
+</td></tr>
+</table>
+</td></tr>
+<tr><td align="center">
+<p style="margin:0;font-size:13px;color:#666666;font-family:Inter,-apple-system,sans-serif;">Link ini akan kadaluarsa dalam 24 jam.<br>
+Jika kamu tidak mengenali undangan ini, abaikan email ini.</p>
+</td></tr>
+</table>
+</td></tr>
+<tr><td align="center" style="padding-top:24px;">
+<p style="margin:0;font-size:12px;color:#666666;font-family:Inter,-apple-system,sans-serif;">&copy; 2026 Jualan AI &mdash; Buat Landing Page dengan AI</p>
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body>

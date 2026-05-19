@@ -89,7 +89,7 @@ export async function POST(request: Request) {
     }
 
     // 5. Send prompt to Groq API
-    console.log("Generating landing page for:", body.product_name, "format:", outputFormat);
+
 
     const systemPrompt = outputFormat === "json" ? SYSTEM_PROMPT_JSON : SYSTEM_PROMPT;
 
@@ -172,7 +172,7 @@ export async function POST(request: Request) {
       .update({ pages_generated: (profile?.pages_generated || 0) + 1 })
       .eq("id", user.id);
 
-    console.log("Landing page created:", landingPage.id);
+
 
     return NextResponse.json({
       id: landingPage.id,

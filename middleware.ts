@@ -57,6 +57,35 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  // Admin routes — check admin role
+  if (request.nextUrl.pathname.startsWith("/dashboard/admin") && user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    if (profile?.role !== "admin") {
+      const url = request.nextUrl.clone();
+      url.pathname = "/dashboard";
+      return NextResponse.redirect(url);
+    }
+  }
+
+  // Remember Me — extend session cookies to 30 days
+  const rememberMe = request.cookies.get("remember_me");
+  if (rememberMe) {
+    const allCookies = supabaseResponse.cookies.getAll();
+    for (const cookie of allCookies) {
+      if (cookie.name.startsWith("sb-") || cookie.name.includes("auth")) {
+        supabaseResponse.cookies.set(cookie.name, cookie.value, {
+          ...cookie,
+          maxAge: 2592000,
+        });
+      }
+    }
+  }
+
   return supabaseResponse;
 }
 

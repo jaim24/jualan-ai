@@ -1,9 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   FileText,
   Eye,
@@ -11,7 +10,12 @@ import {
   TrendingUp,
   Plus,
   ArrowRight,
+  Sparkles,
+  Clock,
+  BarChart3,
+  Rocket,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 import type { Profile, LandingPage } from "@/types";
 
 interface DashboardOverviewProps {
@@ -33,119 +37,168 @@ export default function DashboardOverview({
   const plan = profile?.plan || "free";
   const maxPages = plan === "free" ? 1 : plan === "starter" ? 10 : Infinity;
 
+  const statCards = [
+    {
+      label: "Total Projects",
+      value: stats.totalPages,
+      icon: FileText,
+    },
+    {
+      label: "Published",
+      value: stats.publishedPages,
+      icon: Globe,
+    },
+    {
+      label: "Total Views",
+      value: stats.totalViews,
+      icon: Eye,
+    },
+    {
+      label: "Plan",
+      value: plan.charAt(0).toUpperCase() + plan.slice(1),
+      icon: TrendingUp,
+      sub: maxPages === Infinity ? "Unlimited" : `${stats.totalPages}/${maxPages} used`,
+    },
+  ];
+
   return (
     <div className="space-y-8">
-      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink">
-            Dashboard
-          </h1>
-          <p className="text-sm text-ink-muted mt-1">
+          <div className="flex items-center gap-3 mb-1">
+            <h1 className="text-2xl sm:text-3xl font-medium tracking-tight text-ink">
+              Dashboard
+            </h1>
+            <Badge className="bg-success/10 text-success border-0 text-[11px] px-2 py-0.5">
+              <Sparkles size={10} className="mr-1" />
+              Live
+            </Badge>
+          </div>
+          <p className="text-sm text-ink-muted">
             Selamat datang kembali, {profile?.full_name || "User"}
           </p>
         </div>
-        <Button onClick={() => router.push("/generate")} className="gap-2">
+        <Button
+          onClick={() => router.push("/generate")}
+          className="gap-2"
+        >
           <Plus size={16} />
           Buat Project Baru
         </Button>
       </div>
 
-      {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-lg bg-gradient-violet/10 flex items-center justify-center">
-              <FileText size={20} className="text-gradient-violet" />
+        {statCards.map((card) => (
+          <div
+            key={card.label}
+            className="rounded-xl bg-surface-1 border border-hairline/50 p-6 hover:bg-surface-2 transition-colors duration-150"
+          >
+            <div className="w-10 h-10 rounded-lg bg-ink/5 flex items-center justify-center mb-4">
+              <card.icon size={18} className="text-ink-muted" />
             </div>
-            <div>
-              <p className="text-2xl font-bold text-ink">{stats.totalPages}</p>
-              <p className="text-xs text-ink-muted">Total Projects</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center">
-              <Globe size={20} className="text-success" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-ink">{stats.publishedPages}</p>
-              <p className="text-xs text-ink-muted">Published</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-lg bg-accent-blue/10 flex items-center justify-center">
-              <Eye size={20} className="text-accent-blue" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-ink">{stats.totalViews}</p>
-              <p className="text-xs text-ink-muted">Total Views</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-lg bg-gradient-orange/10 flex items-center justify-center">
-              <TrendingUp size={20} className="text-gradient-orange" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-ink capitalize">{plan}</p>
-              <p className="text-xs text-ink-muted">
-                {maxPages === Infinity ? "Unlimited" : `${stats.totalPages}/${maxPages} used`}
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+            <p className="text-2xl font-medium text-ink mb-0.5">{card.value}</p>
+            <p className="text-sm text-ink-muted">{card.label}</p>
+            {card.sub && (
+              <p className="text-xs text-ink-muted/70 mt-1">{card.sub}</p>
+            )}
+          </div>
+        ))}
       </div>
 
-      {/* Recent Projects */}
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>Recent Projects</CardTitle>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <button
+          onClick={() => router.push("/generate")}
+          className="flex items-center gap-4 p-4 rounded-xl bg-surface-1 border border-hairline/50 hover:bg-surface-2 transition-colors text-left group"
+        >
+          <div className="w-12 h-12 rounded-lg bg-ink/5 flex items-center justify-center group-hover:bg-ink/10 transition-colors">
+            <Rocket size={20} className="text-ink-muted" />
+          </div>
+          <div className="flex-1">
+            <p className="text-sm font-medium text-ink">Buat Landing Page</p>
+            <p className="text-xs text-ink-muted">Generate dengan AI dalam detik</p>
+          </div>
+          <ArrowRight size={16} className="text-ink-muted/50 group-hover:text-ink-muted transition-colors" />
+        </button>
+
+        <button
+          onClick={() => router.push("/dashboard/projects")}
+          className="flex items-center gap-4 p-4 rounded-xl bg-surface-1 border border-hairline/50 hover:bg-surface-2 transition-colors text-left group"
+        >
+          <div className="w-12 h-12 rounded-lg bg-ink/5 flex items-center justify-center group-hover:bg-ink/10 transition-colors">
+            <BarChart3 size={20} className="text-ink-muted" />
+          </div>
+          <div className="flex-1">
+            <p className="text-sm font-medium text-ink">Lihat Projects</p>
+            <p className="text-xs text-ink-muted">{stats.totalPages} project tersedia</p>
+          </div>
+          <ArrowRight size={16} className="text-ink-muted/50 group-hover:text-ink-muted transition-colors" />
+        </button>
+
+        <button
+          onClick={() => router.push("/dashboard/settings")}
+          className="flex items-center gap-4 p-4 rounded-xl bg-surface-1 border border-hairline/50 hover:bg-surface-2 transition-colors text-left group"
+        >
+          <div className="w-12 h-12 rounded-lg bg-ink/5 flex items-center justify-center group-hover:bg-ink/10 transition-colors">
+            <Clock size={20} className="text-ink-muted" />
+          </div>
+          <div className="flex-1">
+            <p className="text-sm font-medium text-ink">Pengaturan</p>
+            <p className="text-xs text-ink-muted">Profile & billing</p>
+          </div>
+          <ArrowRight size={16} className="text-ink-muted/50 group-hover:text-ink-muted transition-colors" />
+        </button>
+      </div>
+
+      <div className="rounded-xl bg-surface-1 border border-hairline/50 overflow-hidden">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-hairline-soft">
+          <div className="flex items-center gap-2">
+            <FileText size={16} className="text-ink-muted" />
+            <h2 className="text-sm font-medium text-ink">Recent Projects</h2>
+          </div>
           {recentPages.length > 0 && (
             <a
               href="/dashboard/projects"
               className="text-sm text-accent-blue hover:underline flex items-center gap-1"
             >
-              View all <ArrowRight size={14} />
+              View all <ArrowRight size={12} />
             </a>
           )}
-        </CardHeader>
-        <CardContent>
-          {recentPages.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-surface-2 flex items-center justify-center">
-                <FileText size={24} className="text-ink-muted" />
-              </div>
-              <p className="text-sm text-ink-muted mb-4">
-                Belum ada project. Buat yang pertama!
-              </p>
-              <Button onClick={() => router.push("/generate")} variant="secondary" className="gap-2">
-                <Plus size={16} />
-                Buat Project
-              </Button>
+        </div>
+
+        {recentPages.length === 0 ? (
+          <div className="text-center py-16 px-6">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-ink/5 flex items-center justify-center">
+              <FileText size={24} className="text-ink-muted/50" />
             </div>
-          ) : (
-            <div className="divide-y divide-hairline-soft">
-              {recentPages.map((page) => (
-                <div
-                  key={page.id}
-                  className="flex items-center justify-between py-3 first:pt-0 last:pb-0"
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-8 h-8 rounded-lg bg-surface-2 flex items-center justify-center shrink-0">
-                      <FileText size={14} className="text-ink-muted" />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-sm font-medium text-ink truncate">
-                        {page.title}
-                      </p>
+            <p className="text-sm text-ink-muted mb-4">
+              Belum ada project. Buat yang pertama!
+            </p>
+            <Button
+              onClick={() => router.push("/generate")}
+              variant="secondary"
+              className="gap-2"
+            >
+              <Plus size={16} />
+              Buat Project
+            </Button>
+          </div>
+        ) : (
+          <div className="divide-y divide-hairline-soft">
+            {recentPages.map((page) => (
+              <div
+                key={page.id}
+                className="flex items-center justify-between px-6 py-4 hover:bg-ink/[0.02] transition-colors"
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-10 h-10 rounded-lg bg-ink/5 flex items-center justify-center shrink-0">
+                    <FileText size={16} className="text-ink-muted" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium text-ink truncate">
+                      {page.title}
+                    </p>
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <Clock size={10} className="text-ink-muted" />
                       <p className="text-xs text-ink-muted">
                         {new Date(page.created_at).toLocaleDateString("id-ID", {
                           day: "numeric",
@@ -155,42 +208,48 @@ export default function DashboardOverview({
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 shrink-0">
-                    <Badge variant={page.is_published ? "success" : "default"}>
-                      {page.is_published ? "Published" : "Draft"}
-                    </Badge>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => router.push(`/preview/${page.id}`)}
-                    >
-                      Open
-                    </Button>
-                  </div>
                 </div>
-              ))}
-            </div>
-          )}
-        </CardContent>
-      </Card>
+                <div className="flex items-center gap-2 shrink-0">
+                  <Badge
+                    className={
+                      page.is_published
+                        ? "bg-success/10 text-success border-0"
+                        : "bg-ink/5 text-ink-muted border-0"
+                    }
+                  >
+                    {page.is_published ? "Published" : "Draft"}
+                  </Badge>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => router.push(`/preview/${page.id}`)}
+                  >
+                    Open
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
 
-      {/* Upgrade Banner */}
       {plan === "free" && stats.totalPages >= 1 && (
-        <Card className="bg-gradient-to-r from-gradient-violet/10 to-gradient-magenta/10 border-gradient-violet/20">
-          <CardContent className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="rounded-xl bg-surface-1 border border-hairline/50 p-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <p className="text-sm font-medium text-ink">
                 Upgrade untuk fitur lebih banyak
               </p>
               <p className="text-xs text-ink-muted mt-1">
-                Kamu sudah pakai {stats.totalPages}/{maxPages} project gratis. Upgrade ke Starter untuk 10 project.
+                Kamu sudah pakai {stats.totalPages}/{maxPages} project gratis. Upgrade ke Starter
+                untuk 10 project.
               </p>
             </div>
-            <Button size="sm" className="shrink-0">
+            <Button className="shrink-0">
               Upgrade Sekarang
             </Button>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       )}
     </div>
   );
